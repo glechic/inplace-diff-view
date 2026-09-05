@@ -1,0 +1,211 @@
+// ============================================================
+// In-place Diff View — styles
+// Compiled to styles.css by esbuild (see esbuild.config.mjs).
+// ============================================================
+
+// Obsidian exposes extended colors only as hex; mix them toward
+// transparent tints at render time with color-mix().
+$old: var(--color-red);
+$new: var(--color-green);
+$note: var(--color-blue);
+
+// Marker text colors: one tint level for inline markers...
+@mixin tint($color, $pct) {
+  background: color-mix(in srgb, #{$color} #{$pct}, transparent);
+  color: #{$color};
+}
+
+// ...and a lighter one for tooltip panels.
+@mixin panel-tint($color, $pct) {
+  background: color-mix(in srgb, #{$color} #{$pct}, transparent);
+}
+
+/* ---------- Correction marker: {old | new} ---------- */
+.inplace-diff-corr {
+  border-radius: 4px;
+  padding: 0 2px;
+  cursor: pointer;
+  white-space: pre-wrap;
+
+  &__old {
+    @include tint($old, 22%);
+    text-decoration: line-through;
+    border-radius: 3px 0 0 3px;
+    padding: 0 2px;
+  }
+
+  &__arrow {
+    color: var(--text-faint);
+    font-size: 0.85em;
+    padding: 0 1px;
+  }
+
+  &__new {
+    @include tint($new, 22%);
+    border-radius: 0 3px 3px 0;
+    padding: 0 2px;
+  }
+
+  // Insertions and deletions have one empty side: hide it and the arrow.
+  &[data-diff-style='insert'] &__old,
+  &[data-diff-style='delete'] &__new,
+  &[data-diff-style='insert'] &__arrow,
+  &[data-diff-style='delete'] &__arrow {
+    display: none;
+  }
+
+  // One-sided markers are symmetric pills.
+  &[data-diff-style='insert'] &__new,
+  &[data-diff-style='delete'] &__old {
+    border-radius: 3px;
+  }
+}
+
+/* ---------- Note marker: {note|...} ---------- */
+.inplace-diff-note {
+  @include tint($note, 15%);
+  border-left: 3px solid #{$note};
+  border-radius: 3px;
+  padding: 1px 5px;
+  cursor: pointer;
+  white-space: pre-wrap;
+
+  &__chip {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75em;
+    letter-spacing: 0.04em;
+    margin-right: 5px;
+    opacity: 0.8;
+  }
+}
+
+/* ---------- Hover tooltip ---------- */
+.inplace-diff-tooltip {
+  position: fixed;
+  z-index: var(--layer-tooltip);
+  max-width: 440px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-s);
+  padding: 10px 12px;
+  display: none;
+  font-size: var(--font-ui-small);
+
+  &.is-open {
+    display: block;
+  }
+
+  &__header {
+    margin-bottom: 6px;
+  }
+
+  &__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    border-radius: 10px;
+
+    &.is-note {
+      @include tint($note, 15%);
+    }
+
+    &.is-correction {
+      color: var(--text-normal);
+      background: var(--background-modifier-hover);
+    }
+  }
+
+  &__row {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    margin: 4px 0;
+  }
+
+  &__side {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 4px 8px;
+    border-radius: 6px;
+
+    &.is-old {
+      @include panel-tint($old, 12%);
+    }
+
+    &.is-new {
+      @include panel-tint($new, 12%);
+    }
+  }
+
+  &__label {
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-faint);
+    margin-bottom: 2px;
+  }
+
+  &__value {
+    font-family: var(--font-monospace);
+    font-size: var(--font-ui-smaller);
+    word-break: break-word;
+    white-space: pre-wrap;
+
+    &.is-empty {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+  }
+
+  &__note {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  &__arrow {
+    display: flex;
+    align-items: center;
+    color: var(--text-faint);
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  &__btn {
+    flex: 1 1 0;
+    cursor: pointer;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--interactive-normal);
+    color: var(--text-normal);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: var(--font-ui-small);
+
+    &:hover {
+      background: var(--interactive-hover);
+    }
+
+    &.is-accept {
+      border-color: color-mix(in srgb, #{$new} 45%, transparent);
+    }
+
+    &.is-reject {
+      border-color: color-mix(in srgb, #{$old} 45%, transparent);
+    }
+
+    &.is-danger {
+      border-color: color-mix(in srgb, #{$old} 45%, transparent);
+      color: #{$old};
+    }
+  }
+}

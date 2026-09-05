@@ -25,13 +25,15 @@ Works in both Reading view and Live Preview (markers under the cursor stay raw i
 
 ```sh
 npm install
-npm run build   # typecheck + production bundle (src/main.ts -> main.js)
+npm run build   # typecheck + production bundle (src/main.ts -> main.js, styles.scss -> styles.css)
 npm run dev     # watch mode with inline sourcemaps
 ```
 
 Project layout follows the official `obsidian-sample-plugin` template:
 sources in `src/`, `esbuild.config.mjs` for bundling, `versions.json` +
 `version-bump.mjs` for releases (`npm version patch` keeps them in sync).
+Styles are written in `styles.scss` and compiled to `styles.css` by
+dart-sass during the build.
 
 Install into a vault by copying `main.js`, `manifest.json`, and `styles.css` into
 `<vault>/.obsidian/plugins/inplace-diff-view/`.
