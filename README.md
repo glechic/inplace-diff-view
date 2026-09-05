@@ -25,9 +25,13 @@ Works in both Reading view and Live Preview (markers under the cursor stay raw i
 
 ```sh
 npm install
-npm run build   # bundles main.ts -> main.js (esbuild)
-./node_modules/.bin/tsc --noEmit   # typecheck
+npm run build   # typecheck + production bundle (src/main.ts -> main.js)
+npm run dev     # watch mode with inline sourcemaps
 ```
+
+Project layout follows the official `obsidian-sample-plugin` template:
+sources in `src/`, `esbuild.config.mjs` for bundling, `versions.json` +
+`version-bump.mjs` for releases (`npm version patch` keeps them in sync).
 
 Install into a vault by copying `main.js`, `manifest.json`, and `styles.css` into
 `<vault>/.obsidian/plugins/inplace-diff-view/`.

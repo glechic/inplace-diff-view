@@ -121,11 +121,11 @@ export function parseLine(line: string, offset: number, lineNo?: number): Marker
 export function parseDoc(text: string): Marker[] {
   const out: Marker[] = [];
   const lines = text.split('\n');
-  let inFrontmatter = lines.length > 0 && lines[0].trim() === '---';
+  let inFrontmatter = lines.length > 0 && lines[0]?.trim() === '---';
   let fence = ''; // '' = not in fence; otherwise the fence marker (``` or ~~~)
   let offset = 0;
   for (let idx = 0; idx < lines.length; idx++) {
-    const line = lines[idx];
+    const line = lines[idx] as string;
     const lineStart = offset;
     offset += line.length + 1;
     if (inFrontmatter) {
@@ -134,10 +134,10 @@ export function parseDoc(text: string): Marker[] {
     }
     const fm = FENCE_RE.exec(line);
     if (fence !== '') {
-      if (fm && fm[1][0] === fence) fence = '';
+      if (fm && fm[1]?.[0] === fence) fence = '';
       continue;
     } else if (fm) {
-      fence = fm[1][0];
+      fence = fm[1]?.[0] ?? '';
       continue;
     }
     out.push(...parseLine(line, lineStart, idx));
