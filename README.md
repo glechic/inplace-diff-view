@@ -32,7 +32,7 @@ npm run dev     # watch mode with inline sourcemaps
 Project layout follows the official `obsidian-sample-plugin` template:
 sources in `src/`, `esbuild.config.mjs` for bundling, `versions.json` +
 `version-bump.mjs` for releases (`npm version patch` keeps them in sync).
-Styles are written in `styles.scss` and compiled to `styles.css` by
+Styles are written in `src/styles.scss` and compiled to `styles.css` by
 dart-sass during the build.
 
 Install into a vault by copying `main.js`, `manifest.json`, and `styles.css` into

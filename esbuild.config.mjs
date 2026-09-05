@@ -12,10 +12,12 @@ if you want to view the source, please visit the github repository of this plugi
 
 const prod = process.argv[2] === 'production';
 
-// Compile styles.scss -> styles.css with the dart-sass compiler.
+// Compile src/styles.scss -> styles.css with the dart-sass compiler.
 // (esbuild has no SCSS support; its css loader passes $vars through raw.)
+const SCSS_ENTRY = 'src/styles.scss';
+
 function compileStyles() {
-  const result = sass.compile('styles.scss', {
+  const result = sass.compile(SCSS_ENTRY, {
     style: prod ? 'compressed' : 'expanded',
     sourceMap: prod ? false : true,
     sourceMapIncludeSources: true,
@@ -27,7 +29,7 @@ function compileStyles() {
     css += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(map).toString('base64')} */`;
   }
   writeFileSync('styles.css', css);
-  console.log(`styles.scss -> styles.css (${css.length} bytes)`);
+  console.log(`${SCSS_ENTRY} -> styles.css (${css.length} bytes)`);
 }
 
 const context = await esbuild.context({
@@ -69,6 +71,6 @@ if (prod) {
   compileStyles();
   // esbuild watches the JS; a tiny fs watcher recompiles the SCSS on change.
   const { watch } = await import('node:fs');
-  watch('styles.scss', () => compileStyles());
+  watch(SCSS_ENTRY, () => compileStyles());
   await context.watch();
 }
