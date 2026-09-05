@@ -1,0 +1,25 @@
+{
+  "name": "inplace-diff-view",
+  "version": "0.1.0",
+  "description": "Renders {old | new} and {note|...} correction markers in Reading view; hover tooltip with Accept/Reject/Delete.",
+  "main": "main.js",
+  "scripts": {
+    "build": "esbuild main.ts --bundle --outfile=main.js --external:obsidian --external:@codemirror/* --external:@lezer/* --format=cjs --target=es2020 --platform=node --log-level=warning",
+    "watch": "npm run build -- --watch"
+  },
+  "devDependencies": {
+    "@codemirror/state": "^6.7.4",
+    "@codemirror/view": "^6.43.11",
+    "builtin-modules": "^5.0.0",
+    "esbuild": "^0.24.0",
+    "obsidian": "^1.13.1",
+    "obsidian-typings": "^6.36.0",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "obsidian",
+    "diff",
+    "review"
+  ],
+  "license": "MIT"
+}

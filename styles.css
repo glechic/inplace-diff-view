@@ -1,0 +1,162 @@
+/* ============ In-place Diff View ============ */
+
+/* Correction marker: {old | new} */
+.inplace-diff-corr {
+  border-radius: 4px;
+  padding: 0 2px;
+  cursor: pointer;
+  white-space: pre-wrap;
+}
+.inplace-diff-corr__old {
+  background: color-mix(in srgb, var(--color-red) 22%, transparent);
+  color: var(--color-red);
+  text-decoration: line-through;
+  border-radius: 3px 0 0 3px;
+  padding: 0 2px;
+}
+.inplace-diff-corr__arrow {
+  color: var(--text-faint);
+  font-size: 0.85em;
+  padding: 0 1px;
+}
+.inplace-diff-corr__new {
+  background: color-mix(in srgb, var(--color-green) 22%, transparent);
+  color: var(--color-green);
+  border-radius: 0 3px 3px 0;
+  padding: 0 2px;
+}
+/* Insertion style (empty old side): green only */
+.inplace-diff-corr[data-diff-style='insert'] .inplace-diff-corr__old,
+.inplace-diff-corr[data-diff-style='delete'] .inplace-diff-corr__new {
+  display: none;
+}
+.inplace-diff-corr[data-diff-style='delete'] .inplace-diff-corr__arrow {
+  display: none;
+}
+
+/* Note marker: {note|...} */
+.inplace-diff-note {
+  background: color-mix(in srgb, var(--color-blue) 15%, transparent);
+  color: var(--color-blue);
+  border-left: 3px solid var(--color-blue);
+  border-radius: 3px;
+  padding: 1px 5px;
+  cursor: pointer;
+  white-space: pre-wrap;
+}
+.inplace-diff-note__chip {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75em;
+  letter-spacing: 0.04em;
+  margin-right: 5px;
+  opacity: 0.8;
+}
+
+/* Hover tooltip */
+.inplace-diff-tooltip {
+  position: fixed;
+  z-index: var(--layer-tooltip);
+  max-width: 440px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-s);
+  padding: 10px 12px;
+  display: none;
+  font-size: var(--font-ui-small);
+}
+.inplace-diff-tooltip.is-open {
+  display: block;
+}
+.inplace-diff-tooltip__header {
+  margin-bottom: 6px;
+}
+.inplace-diff-tooltip__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.inplace-diff-tooltip__chip.is-note {
+  color: var(--color-blue);
+  background: color-mix(in srgb, var(--color-blue) 15%, transparent);
+}
+.inplace-diff-tooltip__chip.is-correction {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+.inplace-diff-tooltip__row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin: 4px 0;
+}
+.inplace-diff-tooltip__side {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.inplace-diff-tooltip__side.is-old {
+  background: color-mix(in srgb, var(--color-red) 12%, transparent);
+}
+.inplace-diff-tooltip__side.is-new {
+  background: color-mix(in srgb, var(--color-green) 12%, transparent);
+}
+.inplace-diff-tooltip__label {
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+  margin-bottom: 2px;
+}
+.inplace-diff-tooltip__value {
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+.inplace-diff-tooltip__value.is-empty,
+.inplace-diff-tooltip__note {
+  color: var(--text-muted);
+  font-style: italic;
+}
+.inplace-diff-tooltip__arrow {
+  display: flex;
+  align-items: center;
+  color: var(--text-faint);
+}
+.inplace-diff-tooltip__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.inplace-diff-tooltip__btn {
+  flex: 1 1 0;
+  cursor: pointer;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--interactive-normal);
+  color: var(--text-normal);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: var(--font-ui-small);
+}
+.inplace-diff-tooltip__btn:hover {
+  background: var(--interactive-hover);
+}
+.inplace-diff-tooltip__btn.is-accept {
+  border-color: color-mix(in srgb, var(--color-green) 45%, transparent);
+}
+.inplace-diff-tooltip__btn.is-reject {
+  border-color: color-mix(in srgb, var(--color-red) 45%, transparent);
+}
+.inplace-diff-tooltip__btn.is-danger {
+  border-color: color-mix(in srgb, var(--color-red) 45%, transparent);
+  color: var(--color-red);
+}
