@@ -25,13 +25,17 @@
   border-radius: 0 3px 3px 0;
   padding: 0 2px;
 }
-/* Insertion style (empty old side): green only */
+/* Insertions and deletions have one empty side: hide it and the arrow */
 .inplace-diff-corr[data-diff-style='insert'] .inplace-diff-corr__old,
-.inplace-diff-corr[data-diff-style='delete'] .inplace-diff-corr__new {
-  display: none;
-}
+.inplace-diff-corr[data-diff-style='delete'] .inplace-diff-corr__new,
+.inplace-diff-corr[data-diff-style='insert'] .inplace-diff-corr__arrow,
 .inplace-diff-corr[data-diff-style='delete'] .inplace-diff-corr__arrow {
   display: none;
+}
+/* One-sided markers are symmetric pills */
+.inplace-diff-corr[data-diff-style='insert'] .inplace-diff-corr__new,
+.inplace-diff-corr[data-diff-style='delete'] .inplace-diff-corr__old {
+  border-radius: 3px;
 }
 
 /* Note marker: {note|...} */
