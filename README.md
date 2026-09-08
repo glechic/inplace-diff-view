@@ -29,11 +29,9 @@ npm run build   # typecheck + production bundle (src/main.ts -> main.js, styles.
 npm run dev     # watch mode with inline sourcemaps
 ```
 
-Project layout follows the official `obsidian-sample-plugin` template:
-sources in `src/`, `esbuild.config.mjs` for bundling, `versions.json` +
-`version-bump.mjs` for releases (`npm version patch` keeps them in sync).
-Styles are written in `src/styles.scss` and compiled to `styles.css` by
-dart-sass during the build.
-
 Install into a vault by copying `main.js`, `manifest.json`, and `styles.css` into
 `<vault>/.obsidian/plugins/inplace-diff-view/`.
+
+## Pairing with an AI agent
+
+The plugin only *renders* the markers — they're meant to be written by an AI agent (or a careful human) proofreading a copy of your note. This section is the full syntax contract, so you can reproduce the workflow anywhere.
