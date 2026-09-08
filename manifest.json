@@ -1,9 +1,9 @@
 {
-  "id": "inplace-diff-view",
-  "name": "In-place Diff View",
-  "version": "0.1.0",
-  "minAppVersion": "1.5.0",
-  "description": "Renders {old | new} and {note|...} correction markers with a hover tooltip to accept, reject, or delete them.",
-  "author": "glechic",
-  "isDesktopOnly": false
+	"id": "inplace-diff-view",
+	"name": "In-place Diff View",
+	"version": "0.1.1",
+	"minAppVersion": "1.5.0",
+	"description": "Renders {old | new} and {note|...} correction markers with a hover tooltip to accept, reject, or delete them.",
+	"author": "glechic",
+	"isDesktopOnly": false
 }
