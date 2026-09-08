@@ -8,6 +8,8 @@ Renders inline review markers from the writing-inplace-diff workflow inside Obsi
 
 Hover a marker for a tooltip with actions:
 
+![Demo: markers in Live Preview with the hover tooltip](images/screenshot.png)
+
 - Corrections: **Accept new** / **Keep old**
 - Notes: **Delete note**
 
