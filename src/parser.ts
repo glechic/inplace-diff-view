@@ -65,7 +65,7 @@ export function classifyRaw(raw: string): Marker | null {
   let inner = raw;
   if (inner.startsWith('{') && inner.endsWith('}')) inner = inner.slice(1, -1);
   const parsed = classify(inner);
-  return parsed ? ({ ...parsed, raw, start: 0, end: raw.length, line: -1 } as Marker) : null;
+  return parsed ? { ...parsed, raw, start: 0, end: raw.length, line: -1 } : null;
 }
 
 function classify(inner: string): Omit<Correction, 'start' | 'end' | 'line' | 'raw'> | Omit<Note, 'start' | 'end' | 'line' | 'raw'> | null {
@@ -105,7 +105,7 @@ export function parseLine(line: string, offset: number, lineNo?: number): Marker
     const raw = m[0];
     const parsed = classify(raw.slice(1, -1));
     if (parsed) {
-      out.push({ ...parsed, raw, line: lineNo ?? -1, start: offset + brace, end: offset + brace + raw.length } as Marker);
+      out.push({ ...parsed, raw, line: lineNo ?? -1, start: offset + brace, end: offset + brace + raw.length });
       i = brace + raw.length;
     } else {
       i = brace + 1;

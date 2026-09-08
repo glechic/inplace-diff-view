@@ -1,5 +1,5 @@
 import { setIcon } from 'obsidian';
-import type { Correction, Marker, MarkerAction } from './parser';
+import type { Marker, MarkerAction } from './parser';
 import { classifyRaw } from './parser';
 
 export interface TooltipHost {
@@ -40,9 +40,7 @@ export class MarkerTooltip {
     t.classList.add('is-open');
 
     // Measure, then clamp below (or above) the element inside the viewport.
-    t.style.visibility = 'hidden';
-    t.style.left = '0px';
-    t.style.top = '0px';
+    t.setCssStyles({ visibility: 'hidden', left: '0px', top: '0px' });
     document.body.appendChild(t);
     const tw = t.offsetWidth;
     const th = t.offsetHeight;
@@ -52,9 +50,11 @@ export class MarkerTooltip {
     left = Math.max(margin, Math.min(left, window.innerWidth - tw - margin));
     let top = r.bottom + 8;
     if (top + th > window.innerHeight - margin) top = Math.max(margin, r.top - th - 8);
-    t.style.left = `${Math.round(left)}px`;
-    t.style.top = `${Math.round(top)}px`;
-    t.style.visibility = 'visible';
+    t.setCssStyles({
+      left: `${Math.round(left)}px`,
+      top: `${Math.round(top)}px`,
+      visibility: 'visible',
+    });
   }
 
   private build(): void {
@@ -108,7 +108,7 @@ export class MarkerTooltip {
       return;
     }
 
-    const corr = marker as Correction;
+    const corr = marker;
     const row = t.createDiv({ cls: 'inplace-diff-tooltip__row' });
     const oldSide = row.createDiv({ cls: 'inplace-diff-tooltip__side is-old' });
     if (corr.old) {

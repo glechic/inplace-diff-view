@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-    "version": "node version-bump.mjs && git add manifest.json versions.json"
+    "version": "node version-bump.mjs && git add manifest.json versions.json",
+    "lint": "eslint ."
   },
   "keywords": [
     "obsidian",
@@ -19,10 +20,15 @@
   "devDependencies": {
     "@codemirror/state": "6.5.0",
     "@codemirror/view": "6.38.6",
+    "@eslint/js": "^10.0.1",
     "@types/node": "^22.15.17",
     "esbuild": "^0.25.5",
+    "eslint": "^10.10.0",
+    "eslint-plugin-obsidianmd": "^0.4.2",
+    "globals": "^17.12.0",
     "obsidian": "^1.13.1",
     "sass": "^1.104.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.70.0"
   }
 }

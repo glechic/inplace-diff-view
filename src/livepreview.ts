@@ -1,4 +1,4 @@
-import { Extension } from '@codemirror/state';
+import { Extension, Range } from '@codemirror/state';
 import { Decoration, DecorationSet, EditorView, ViewPlugin, ViewUpdate, WidgetType } from '@codemirror/view';
 import { Marker, parseDoc } from './parser';
 import { buildMarkerEl } from './render';
@@ -29,7 +29,7 @@ function buildDecorations(view: EditorView): DecorationSet {
   if (markers.length === 0) return Decoration.none;
   const sel = view.state.selection.main;
   const visible = view.visibleRanges;
-  const ranges: any[] = [];
+  const ranges: Range<Decoration>[] = [];
   for (const m of markers) {
     // Skip while the selection touches the marker: expose raw text for editing.
     if (sel.from <= m.end && m.start <= sel.to) continue;

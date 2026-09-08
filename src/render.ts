@@ -51,7 +51,7 @@ export function renderSection(el: HTMLElement): void {
     const text = node.textContent ?? '';
     const markers = parseDoc(text);
     if (!markers.length) continue;
-    const frag = document.createDocumentFragment();
+    const frag = createFragment();
     for (const p of pieces(text, markers)) {
       frag.appendChild(p.kind === 'text' ? document.createTextNode(p.value) : buildMarkerEl(p.marker));
     }
